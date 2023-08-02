@@ -26,7 +26,12 @@ function playRound(playerSelection, computerSelection){
     console.log(`${playerScore} - ${computerScore}`)
 }
 
-let playerSelection = prompt("Pick: 'Rock', 'Paper' or 'Scissors'?").toLowerCase().trim();
-let computerSelection = getComputerChoice();
+function gameStart(){
+    for (let index = 0; index < 5; index++) {
+        let playerSelection = prompt("Pick: 'Rock', 'Paper' or 'Scissors'?").toLowerCase().trim();
+        let computerSelection = getComputerChoice();
+        playRound(playerSelection, computerSelection);
+    }
+}
 
-playRound(playerSelection, computerSelection);
+gameStart();
