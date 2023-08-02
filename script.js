@@ -36,6 +36,15 @@ function gameStart(){
         let computerSelection = getComputerChoice();
         playRound(playerSelection, computerSelection);
     }
+    if (playerScore === computerScore) {
+        console.log('No winners! It\'s a tie!!!')
+    } else {
+        if (playerScore > computerScore) {
+            console.log('Player Wins!')
+        } else {
+            console.log('Computers Wins!')
+        }
+    }
 }
 
 gameStart();
