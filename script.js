@@ -1,8 +1,9 @@
 let playerScore = 0,
     computerScore = 0;
 
+let choices = ['Rock', 'Paper', 'Scissors'];
+
 function getComputerChoice(){
-    let choices = ['Rock', 'Paper', 'Scissors'];
     return choices[Math.floor(Math.random() * choices.length)].toLowerCase();
 }
 
@@ -27,8 +28,11 @@ function playRound(playerSelection, computerSelection){
 }
 
 function gameStart(){
+    let playerSelection = '';
     for (let index = 0; index < 5; index++) {
-        let playerSelection = prompt("Pick: 'Rock', 'Paper' or 'Scissors'?").toLowerCase().trim();
+        do {
+            playerSelection = prompt("Pick: 'Rock', 'Paper' or 'Scissors'?").toLowerCase().trim();
+        } while (!choices.includes(`${playerSelection[0].toUpperCase() + playerSelection.slice(1)}`));
         let computerSelection = getComputerChoice();
         playRound(playerSelection, computerSelection);
     }
