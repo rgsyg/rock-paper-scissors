@@ -1,0 +1,81 @@
+html {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #D8D9DA;
+}
+
+body {
+    background-color: #272829;
+}
+
+.wrapper {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+input {
+    background-color: #61677A;
+    font-size: 3em;
+    border-style: outset;
+    border-radius: 4px;
+    border-color: #FFF6E0;
+    padding: 8px;
+    width: 100%;
+    text-align: center;
+}
+
+input:active {
+    border-style: inset;
+}
+
+header {
+    background-color: #61677A;
+    justify-self: flex-start;
+    width: 800px;
+    text-align: center;
+    padding: 30px 0;
+    border: 2px solid #FFF6E0;
+}
+
+header > h1 {
+    font-size: 4em;
+    font-weight: bold;
+}
+
+
+main {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+}
+
+section {
+    flex: 1;
+}
+
+.rps-container {
+    flex: 2;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.choices {
+    flex: 1;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 8px;
+}
+
+.scores {
+    flex: 1;
+    font-size: 4em;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}

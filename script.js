@@ -1,11 +1,10 @@
+const buttons = document.querySelectorAll('input[type="button"]');
 let playerScore = 0,
     computerScore = 0;
 
 let choices = ['Rock', 'Paper', 'Scissors'];
 
 let firstLetterUpperCase = (str) => str[0].toUpperCase() + str.slice(1);
-
-startGame();
 
 function getComputerChoice(){
     // double '~' means to truncate decimal places or a faster Math.floor()
@@ -34,18 +33,12 @@ function playRound(playerSelection, computerSelection){
 }
 
 function startGame(){
-    let playerSelection = '';
+    let playerSelection = this.value.toLowerCase();
+    console.log(playerSelection);
     
-    for (let index = 0; index < 5; index++) {
-        // repeat until player picked a valid choice
-        do {
-            playerSelection = prompt("Pick: 'Rock', 'Paper' or 'Scissors'?").toLowerCase().trim();
-        } while (!choices.includes(`${firstLetterUpperCase(playerSelection)}`));
+    let computerSelection = getComputerChoice();
 
-        let computerSelection = getComputerChoice();
-
-        playRound(playerSelection, computerSelection);
-    }
+    playRound(playerSelection, computerSelection);
 
     if (playerScore === computerScore) {
         console.log('No winners! It\'s a tie!!!');
@@ -57,3 +50,5 @@ function startGame(){
         }
     }
 }
+
+buttons.forEach((button) => button.addEventListener('click', startGame))
