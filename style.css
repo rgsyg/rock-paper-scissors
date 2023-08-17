@@ -53,6 +53,9 @@ main {
 
 section {
     flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .rps-container {
@@ -64,7 +67,7 @@ section {
 }
 
 .choices {
-    flex: 1;
+    flex: 3;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -72,10 +75,11 @@ section {
 }
 
 .scores {
-    flex: 1;
+    flex: 2;
     font-size: 4em;
     font-weight: bold;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    margin-top: 20px;
 }

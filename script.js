@@ -1,53 +1,75 @@
 const buttons = document.querySelectorAll('input[type="button"]');
+const playerChoice = document.querySelector('.player-choice');
+const computerChoice = document.querySelector('.computer-choice');
+const container = document.querySelector('.rps-container');
+const scores = document.querySelector('.scores');
+const playerScoreText = scores.querySelector('.player-score');
+const computerScoreText = scores.querySelector('.computer-score');
+
+const statusText = document.createElement('h1');
+const choices = ['Rock', 'Paper', 'Scissors'];
+
 let playerScore = 0,
     computerScore = 0;
 
-let choices = ['Rock', 'Paper', 'Scissors'];
-
-let firstLetterUpperCase = (str) => str[0].toUpperCase() + str.slice(1);
-
-function getComputerChoice(){
+function getComputerChoice() {
     // double '~' means to truncate decimal places or a faster Math.floor()
-    return choices[~~(Math.random() * choices.length)].toLowerCase();
+    return choices[~~(Math.random() * choices.length)];
 }
 
-function playRound(playerSelection, computerSelection){
-    console.log(`You picked ${playerSelection}`);
-    console.log(`Your opponent picked ${computerSelection}`);
+function displayStatus(text) {
+    statusText.textContent = text;
+    statusText.style = `
+    font-size: 3em; font-weight: bold; flex: 1;
+    display: flex; align-items: center;
+    justify-content: center; margin-top: 25px;`;
+    container.insertBefore(statusText, scores);
+}
+
+function reset() {
+    statusText.style.display = 'none';
+    [playerScore, computerScore] = [0, 0];
+    [playerScoreText.textContent, computerScoreText.textContent] = [0, 0];
+    buttons.forEach((button) => button.disabled = false);
+    playerChoice.innerHTML = ``;
+    computerChoice.innerHTML = ``;
+}
+
+function disableButtons() {
+    buttons.forEach((button) => button.disabled = true);
+}
+
+function playRound(playerSelection, computerSelection) {
+    playerChoice.innerHTML = `<h1 style="font-size:4em; font-weight:bold">${playerSelection}</h1>`
+    computerChoice.innerHTML = `<h1 style="font-size:4em; font-weight:bold">${computerSelection}</h1>`
     
     if (playerSelection === computerSelection){
-        console.log("Tied!")
+        return;
     } else {
-        if (playerSelection === 'rock' && computerSelection === 'scissors'
-        || playerSelection === 'paper' && computerSelection === 'rock'
-        || playerSelection === 'scissors' && computerSelection === 'paper'){
-            console.log(`You Win! ${firstLetterUpperCase(playerSelection)} beats ${firstLetterUpperCase(computerSelection)}`);
-            playerScore++;
+        if (playerSelection === 'Rock' && computerSelection === 'Scissors'
+        || playerSelection === 'Paper' && computerSelection === 'Rock'
+        || playerSelection === 'Scissors' && computerSelection === 'Paper'){
+            playerScoreText.textContent = ++playerScore;
         } else {
-            console.log(`You Lose! ${firstLetterUpperCase(computerSelection)} beats ${firstLetterUpperCase(playerSelection)}`);
-            computerScore++;
+            computerScoreText.textContent = ++computerScore;
         }
     }
-
-    console.log(`${playerScore} - ${computerScore}`)
 }
 
-function startGame(){
-    let playerSelection = this.value.toLowerCase();
-    console.log(playerSelection);
-    
-    let computerSelection = getComputerChoice();
+function startGame() {
+    const playerSelection = this.value;
+    const computerSelection = getComputerChoice();
 
     playRound(playerSelection, computerSelection);
-
-    if (playerScore === computerScore) {
-        console.log('No winners! It\'s a tie!!!');
-    } else {
-        if (playerScore > computerScore) {
-            console.log('Player Wins!')
-        } else {
-            console.log('Computers Wins!')
-        }
+    
+    if (playerScore === 5) {
+        displayStatus('You Win!');
+        disableButtons();
+        setTimeout(reset, 3000);
+    } else if (computerScore === 5) {
+        displayStatus('Computer Wins!');
+        disableButtons();
+        setTimeout(reset, 3000);
     }
 }
 
