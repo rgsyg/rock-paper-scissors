@@ -87,7 +87,7 @@ section {
 }
 
 .player-choice {
-    transition: opacity 1.5s;
+    transition: opacity 1s;
     opacity: 0;
 }
 
@@ -96,7 +96,7 @@ section {
 }
 
 .computer-choice {
-    transition: opacity 1.5s;
+    transition: opacity 1s;
     opacity: 0;
 }
 
