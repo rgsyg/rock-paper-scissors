@@ -33,6 +33,8 @@ function reset() {
     enableButtons();
     playerChoice.textContent = ``;
     computerChoice.textContent = ``;
+    playerChoice.classList.remove('active');
+    computerChoice.classList.remove('active');
 }
 
 function disableButtons() {
