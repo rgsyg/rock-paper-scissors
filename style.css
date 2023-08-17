@@ -8,11 +8,11 @@ body {
 }
 
 .wrapper {
-    height: 100vh;
+    height: 95vh;
     display: flex;
     align-items: center;
     flex-direction: column;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 input {
@@ -56,6 +56,8 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size:4em; 
+    font-weight:bold
 }
 
 .rps-container {
@@ -82,4 +84,22 @@ section {
     justify-content: space-around;
     align-items: center;
     margin-top: 20px;
+}
+
+.player-choice {
+    transition: opacity 1.5s;
+    opacity: 0;
+}
+
+.player-choice.active {
+    opacity: 1;
+}
+
+.computer-choice {
+    transition: opacity 1.5s;
+    opacity: 0;
+}
+
+.computer-choice.active {
+    opacity: 1;
 }

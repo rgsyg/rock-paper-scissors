@@ -30,18 +30,61 @@ function reset() {
     statusText.style.display = 'none';
     [playerScore, computerScore] = [0, 0];
     [playerScoreText.textContent, computerScoreText.textContent] = [0, 0];
-    buttons.forEach((button) => button.disabled = false);
-    playerChoice.innerHTML = ``;
-    computerChoice.innerHTML = ``;
+    enableButtons();
+    playerChoice.textContent = ``;
+    computerChoice.textContent = ``;
 }
 
 function disableButtons() {
     buttons.forEach((button) => button.disabled = true);
 }
 
+function enableButtons() {
+    buttons.forEach((button) => button.disabled = false);
+}
+
+function handleOpacity() {
+    playerChoice.classList.add('active');
+    disableButtons();
+    setTimeout(() => {
+        computerChoice.classList.add('active');
+        setTimeout(() => {
+            if (!winCondition()) {
+                playerChoice.classList.remove('active');
+                computerChoice.classList.remove('active');
+                addScore(playerScore, computerScore);
+                setTimeout(enableButtons, 1000)
+            }
+            addScore(playerScore, computerScore);
+            winCondition();
+        }, 2000);
+    }, 1000);
+}
+
+function addScore(pScore, cScore) {
+    playerScoreText.textContent = pScore;
+    computerScoreText.textContent = cScore;
+}
+
+function winCondition() {
+    if (playerScore === 5) {
+        displayStatus('You Win!');
+        disableButtons();
+        setTimeout(reset, 3000);
+        return true;
+    } else if (computerScore === 5) {
+        displayStatus('Computer Wins!');
+        disableButtons();
+        setTimeout(reset, 3000);
+        return true;
+    } else {
+        return false;
+    }
+}
+
 function playRound(playerSelection, computerSelection) {
-    playerChoice.innerHTML = `<h1 style="font-size:4em; font-weight:bold">${playerSelection}</h1>`
-    computerChoice.innerHTML = `<h1 style="font-size:4em; font-weight:bold">${computerSelection}</h1>`
+    playerChoice.textContent = playerSelection;
+    computerChoice.textContent = computerSelection;
     
     if (playerSelection === computerSelection){
         return;
@@ -49,11 +92,13 @@ function playRound(playerSelection, computerSelection) {
         if (playerSelection === 'Rock' && computerSelection === 'Scissors'
         || playerSelection === 'Paper' && computerSelection === 'Rock'
         || playerSelection === 'Scissors' && computerSelection === 'Paper'){
-            playerScoreText.textContent = ++playerScore;
+            ++playerScore;
         } else {
-            computerScoreText.textContent = ++computerScore;
+            ++computerScore;
         }
     }
+
+    handleOpacity();
 }
 
 function startGame() {
@@ -61,16 +106,6 @@ function startGame() {
     const computerSelection = getComputerChoice();
 
     playRound(playerSelection, computerSelection);
-    
-    if (playerScore === 5) {
-        displayStatus('You Win!');
-        disableButtons();
-        setTimeout(reset, 3000);
-    } else if (computerScore === 5) {
-        displayStatus('Computer Wins!');
-        disableButtons();
-        setTimeout(reset, 3000);
-    }
 }
 
 buttons.forEach((button) => button.addEventListener('click', startGame))
